@@ -2,7 +2,7 @@ package nats
 
 import (
 	"encoding/json"
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 	"strings"
 
 	nats "github.com/nats-io/go-nats"

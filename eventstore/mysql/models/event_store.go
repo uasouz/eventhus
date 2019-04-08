@@ -83,7 +83,7 @@ func (e *EventStore) Load(qu Queryer) (set []EventStore, err error) {
 }
 
 func (e *EventStore) LoadByAggregate(qu Queryer, uuid []byte) (set []EventStore, err error) {
-	stmt := "SELECT " + selectEventStore + " FROM `event_store` WHERE uuid = ?"
+	stmt := "SELECT " + selectEventStore + " FROM `event_store` WHERE aggregate_id = ?"
 
 	if e.limit == 0 && e.offset > 0 {
 		return set, fmt.Errorf("cannot query with offset but no limit")
@@ -95,6 +95,7 @@ func (e *EventStore) LoadByAggregate(qu Queryer, uuid []byte) (set []EventStore,
 	if e.offset > 0 {
 		stmt += fmt.Sprintf(" OFFSET %d", e.offset)
 	}
+
 	defer func() {
 		e.limit = 0
 		e.offset = 0

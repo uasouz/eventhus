@@ -1,8 +1,8 @@
 package mongo
 
 import (
-	"github.com/mishudark/eventhus"
 	"fmt"
+	"github.com/uasouz/eventhus"
 	"time"
 
 	"gopkg.in/mgo.v2"

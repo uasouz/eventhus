@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 
 	"log"
 

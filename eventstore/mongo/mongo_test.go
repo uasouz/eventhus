@@ -1,7 +1,7 @@
 package mongo
 
 import (
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 	"math/rand"
 	"testing"
 	"time"

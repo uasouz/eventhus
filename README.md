@@ -8,7 +8,7 @@ The mainstream approach people use for interacting with an information system is
 **Event Sourcing** ensure that every change to the state of an application is captured in an event object, and that these event objects are themselves stored in the sequence they were applied for the same lifetime as the application state itself.
 
 # Examples
-[bank account](https://github.com/mishudark/eventhus/blob/master/examples/bank) shows a full example  with `deposits` and `withdrawls`
+[bank account](https://github.com/uasouz/eventhus/blob/master/examples/bank) shows a full example  with `deposits` and `withdrawls`
 
 # Usage
 There are 3 basic units of work `event`, `command` and `aggregate`
@@ -20,7 +20,7 @@ Let’s start with some code:
 
 ```go
 
-import "github.com/mishudark/eventhus"
+import "github.com/uasouz/eventhus"
 
 //PerformDeposit to an account
 type PerformDeposit struct {
@@ -54,7 +54,7 @@ The aggregate is a logical boundary for things that can change in a business tra
 Show me the code!
 
 ```go
-import "github.com/mishudark/eventhus"
+import "github.com/uasouz/eventhus"
 
 //Account of bank
 type Account struct {
@@ -130,7 +130,7 @@ Save events, publish it and recreate an aggregate from `event store` is made by 
 Currently it has support for `MongoDB`, `Rethinkdb` is in the scope to be add
 
 ```go
-import "github.com/mishudark/eventhus/config"
+import "github.com/uasouz/eventhus/config"
 ...
 
 config.Mongo("localhost", 27017, "bank") // event store
@@ -143,7 +143,7 @@ we create an eventstore with `config.Mongo`, it accepts `host`, `port` and `tabl
 `RabbitMQ` and `Nats.io` are supported
 
 ```go
-import 	"github.com/mishudark/eventhus/config"
+import 	"github.com/uasouz/eventhus/config"
 ...
 
 config.Nats("nats://ruser:T0pS3cr3t@localhost:4222", false) // event bus
@@ -156,10 +156,10 @@ Now that we have all the pieces, we can register our `events`, `commands` and `a
 
 ```go
 import (
-	"github.com/mishudark/eventhus"
-	"github.com/mishudark/eventhus/commandhandler/basic"
-	"github.com/mishudark/eventhus/config"
-	"github.com/mishudark/eventhus/examples/bank"
+	"github.com/uasouz/eventhus"
+	"github.com/uasouz/eventhus/commandhandler/basic"
+	"github.com/uasouz/eventhus/config"
+	"github.com/uasouz/eventhus/examples/bank"
 )
 
 func getConfig() (eventhus.CommandBus, error) {
@@ -195,7 +195,7 @@ uuid, _ := utils.UUID()
 //1) Create an account
 var account bank.CreateAccount
 account.AggregateID = uuid
-account.Owner = "mishudark"
+account.Owner = "uasouz"
 
 commandBus.HandleCommand(account)
 ```
@@ -215,7 +215,7 @@ You should listen your `eventbus`, the format of the event allways is the same, 
 	"version": 1,
 	"type": "AccountCreated",
 	"data": {
-		"owner": "mishudark"
+		"owner": "uasouz"
 	}
 }
 ```

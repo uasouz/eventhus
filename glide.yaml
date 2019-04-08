@@ -1,4 +1,4 @@
-package: github.com/mishudark/eventhus
+package: github.com/uasouz/eventhus
 import:
 - package: github.com/eclipse/paho.mqtt.golang
   version: v1.1.1

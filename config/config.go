@@ -1,13 +1,14 @@
 package config
 
 import (
-	"github.com/mishudark/eventhus"
-	"github.com/mishudark/eventhus/commandbus/async"
-	"github.com/mishudark/eventhus/eventbus/mosquitto"
-	"github.com/mishudark/eventhus/eventbus/nats"
-	"github.com/mishudark/eventhus/eventbus/rabbitmq"
-	"github.com/mishudark/eventhus/eventstore/badger"
-	"github.com/mishudark/eventhus/eventstore/mongo"
+	"github.com/uasouz/eventhus"
+	"github.com/uasouz/eventhus/commandbus/async"
+	"github.com/uasouz/eventhus/eventbus/mosquitto"
+	"github.com/uasouz/eventhus/eventbus/nats"
+	"github.com/uasouz/eventhus/eventbus/rabbitmq"
+	"github.com/uasouz/eventhus/eventstore/badger"
+	"github.com/uasouz/eventhus/eventstore/mongo"
+	"github.com/uasouz/eventhus/eventstore/mysql"
 )
 
 // EventBus returns an eventhus.EventBus impl
@@ -81,6 +82,12 @@ func Mosquitto(method string, host string, port int, clientID string) EventBus {
 func Mongo(host string, port int, db string) EventStore {
 	return func() (eventhus.EventStore, error) {
 		return mongo.NewClient(host, port, db)
+	}
+}
+
+func Mysql(dsn string) EventStore {
+	return func() (eventhus.EventStore, error) {
+		return mysql.NewClient(dsn)
 	}
 }
 

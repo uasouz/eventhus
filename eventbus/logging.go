@@ -3,7 +3,7 @@ package eventbus
 import (
 	"log"
 
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 )
 
 // Logger logs messages sent to the event bus.

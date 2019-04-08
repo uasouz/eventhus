@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 	"github.com/oklog/ulid"
 )
 

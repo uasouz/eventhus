@@ -3,7 +3,7 @@ package eventbus
 import (
 	"fmt"
 
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 )
 
 // MultiPublisherError is returned from publish when

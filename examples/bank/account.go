@@ -3,7 +3,7 @@ package bank
 import (
 	"errors"
 
-	"github.com/mishudark/eventhus"
+	"github.com/uasouz/eventhus"
 )
 
 //ErrBalanceOut when you don't have balance to perform the operation
