@@ -2,12 +2,13 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"github.com/google/uuid"
 	"os"
 	"time"
 
 	"github.com/golang/glog"
 	"github.com/uasouz/eventhus/examples/bank"
-	"github.com/uasouz/eventhus/utils"
 )
 
 func main() {
@@ -24,30 +25,31 @@ func main() {
 	//Create Account
 	for i := 0; i < 3; i++ {
 		go func() {
-			uuid, err := utils.UUID()
+			aggregateUUID := uuid.New().String()
 			if err != nil {
 				return
 			}
 
 			//1) Create an account
 			var account bank.CreateAccount
-			account.AggregateID = uuid
+			account.AggregateID = aggregateUUID
 			account.Owner = "uasouz"
 
 			commandBus.HandleCommand(account)
-			glog.Infof("account %s - account created", uuid)
+			fmt.Println("account %s - account created", aggregateUUID)
 
+			fmt.Println("wtf boy")
 			//2) Perform a deposit
 			time.Sleep(time.Millisecond * 100)
 			deposit := bank.PerformDeposit{
 				Amount: 300,
 			}
 
-			deposit.AggregateID = uuid
+			deposit.AggregateID = aggregateUUID
 			deposit.Version = 1
 
 			commandBus.HandleCommand(deposit)
-			glog.Infof("account %s - deposit performed", uuid)
+			glog.Infof("account %s - deposit performed", aggregateUUID)
 
 			//3) Perform a withdrawl
 			time.Sleep(time.Millisecond * 100)
@@ -55,11 +57,11 @@ func main() {
 				Amount: 249,
 			}
 
-			withdrawl.AggregateID = uuid
+			withdrawl.AggregateID = aggregateUUID
 			withdrawl.Version = 2
 
 			commandBus.HandleCommand(withdrawl)
-			glog.Infof("account %s - withdrawl performed", uuid)
+			glog.Infof("account %s - withdrawl performed", aggregateUUID)
 		}()
 	}
 	<-end

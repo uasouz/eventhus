@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"database/sql"
+	"encoding/json"
 	"errors"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
@@ -102,11 +103,21 @@ func (c *Client) save(events []eventhus.Event, version int, safe bool) error {
 			return err
 		}
 		//`timestamp`, `uuid`, `version`, `event_type_id`, `event_data`, `event_meta`
-		//binEvUUID, err := event.ID().MarshalBinary()
+		EvUUID, err := uuid.Parse(event.AggregateID)
 		if err != nil {
 			return err
 		}
-		_, err = stmt.Exec(eventStore.Timestamp, eventStore.AggregateID, eventStore.Version, eventStore.Type, eventStore.Data, eventStore.AggregateType)
+		binEvUUID, err := EvUUID.MarshalBinary()
+		if err != nil {
+			return err
+		}
+
+		eventdata,err := json.Marshal(event.Data)
+		if err != nil {
+			return err
+		}
+
+		_, err = stmt.Exec(eventStore.Timestamp, binEvUUID, eventStore.Version, eventStore.Type, eventdata, eventStore.AggregateType)
 		if err != nil {
 			return err
 		}

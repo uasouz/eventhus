@@ -1,6 +1,9 @@
 package async
 
-import "github.com/uasouz/eventhus"
+import (
+	"fmt"
+	"github.com/uasouz/eventhus"
+)
 
 var workerPool = make(chan chan eventhus.Command)
 
@@ -34,7 +37,7 @@ func (w *Worker) Start() {
 			}
 
 			if err = handler.Handle(job); err != nil {
-				//TODO: log the error
+				fmt.Errorf("Error:",err)
 			}
 		}
 	}()
